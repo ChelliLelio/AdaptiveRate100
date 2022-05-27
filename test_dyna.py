@@ -16,14 +16,14 @@ opt = TestOptions().parse()
 transform = transforms.Compose(
     [transforms.ToTensor(),
      transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
-trainset = torchvision.datasets.CIFAR10(root='./data', train=False,
+trainset = torchvision.datasets.CIFAR100(root='./data', train=False,
                                         download=True, transform=transform)
 
 dataset = torch.utils.data.DataLoader(trainset, batch_size=1,
                                         shuffle=False, num_workers=0, drop_last=True)
-#A = trainset.class_to_idx
+A = trainset.class_to_idx
 #B= trainset.targets
-#print('A: ',A)
+print('A: ',A)
 #print(B)
 dataset_size = len(dataset)
 print('#test images = %d' % dataset_size)
