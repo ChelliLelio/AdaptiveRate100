@@ -35,10 +35,9 @@ model.setup(opt)               # regular setup: load and print networks; create 
 model.eval()
 
 PSNR_list = []
-SSIM_list = []
 N_channel_list = []
-count_list = [[]]*10
-PSNR_class_list = [[]]*10
+count_list = [[]]*100
+PSNR_class_list = [[]]*100
 
 for i, data in enumerate(dataset):
     if i >= opt.num_test:  # only apply our model to opt.num_test images.
@@ -73,13 +72,12 @@ for i, data in enumerate(dataset):
         print(i)
 
 
-counts = [np.mean(count_list[i]) for i in range(10)]
-PSNRs = [np.mean(np.hstack(PSNR_class_list[i])) for i in range(10)]
+counts = [np.mean(count_list[i]) for i in range(100)]
+PSNRs = [np.mean(np.hstack(PSNR_class_list[i])) for i in range(100)]
 CPP_channel = np.mean(N_channel_list)/16
 CPP_Gtilde = np.mean(N_channel_list)*128/(2*32*32)
 Features = np.mean(N_channel_list)-4
 print(f'Mean PSNR: {np.mean(PSNR_list):.3f}')
-print(f'Mean SSIM: {np.mean(SSIM_list):.3f}')
 print(f'Mean Channel: {np.mean(N_channel_list):.3f}')
 print('Mean CPP_channel: ', CPP_channel)
 print('Mean CPP_Gtilde: ', CPP_Gtilde)
